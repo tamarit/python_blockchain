@@ -1,0 +1,5 @@
+docker build -t blockchain .
+docker run --name blockchain -v $PWD/bashhistory:/commandhistory -v $PWD/src:/home/user/blockchain/src -it --rm blockchain bash
+
+BUILD requirements.txt
+pigar -p requirements.txt -P .
