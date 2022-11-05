@@ -89,6 +89,7 @@ class BlockChain:
 last_block_hash = ""
 transactions = []
 TPCoins = []
+last_transaction_index = 0
 
 
 ###########################################
@@ -154,90 +155,90 @@ if __name__ == '__main__':
 
     ###########################################
     # # Test Multiple Transactions
-    # Dinesh = Client()
-    # Ramesh = Client()
-    # Seema = Client()
-    # Vijay = Client()
+    Dinesh = Client()
+    Ramesh = Client()
+    Seema = Client()
+    Vijay = Client()
 
-    # t1 = Transaction(
-    #     Dinesh,
-    #     Ramesh.identity,
-    #     15.0 
-    # )
-    # t1.sign_transaction()
-    # transactions.append(t1)
+    t1 = Transaction(
+        Dinesh,
+        Ramesh.identity,
+        15.0 
+    )
+    t1.sign_transaction()
+    transactions.append(t1)
 
-    # t2 = Transaction(
-    #     Dinesh,
-    #     Seema.identity,
-    #     6.0
-    # )
-    # t2.sign_transaction()
-    # transactions.append(t2)
+    t2 = Transaction(
+        Dinesh,
+        Seema.identity,
+        6.0
+    )
+    t2.sign_transaction()
+    transactions.append(t2)
 
-    # t3 = Transaction(
-    #     Ramesh,
-    #     Vijay.identity,
-    #     2.0 
-    # )
-    # t3.sign_transaction()
-    # transactions.append(t3)
+    t3 = Transaction(
+        Ramesh,
+        Vijay.identity,
+        2.0 
+    )
+    t3.sign_transaction()
+    transactions.append(t3)
 
-    # t4 = Transaction(
-    #     Seema,
-    #     Ramesh.identity,
-    #     4.0
-    # )
-    # t4.sign_transaction()
-    # transactions.append(t4)
+    t4 = Transaction(
+        Seema,
+        Ramesh.identity,
+        4.0
+    )
+    t4.sign_transaction()
+    transactions.append(t4)
 
-    # t5 = Transaction(
-    #     Vijay,
-    #     Seema.identity,
-    #     7.0
-    # )
-    # t5.sign_transaction()
-    # transactions.append(t5)
+    t5 = Transaction(
+        Vijay,
+        Seema.identity,
+        7.0
+    )
+    t5.sign_transaction()
+    transactions.append(t5)
 
-    # t6 = Transaction(
-    #     Ramesh,
-    #     Seema.identity,
-    #     3.0
-    # )
-    # t6.sign_transaction()
-    # transactions.append(t6)
+    t6 = Transaction(
+        Ramesh,
+        Seema.identity,
+        3.0
+    )
+    t6.sign_transaction()
+    transactions.append(t6)
 
-    # t7 = Transaction(
-    #     Seema,
-    #     Dinesh.identity,
-    #     8.0
-    # )
-    # t7.sign_transaction()
-    # transactions.append(t7)
+    t7 = Transaction(
+        Seema,
+        Dinesh.identity,
+        8.0
+    )
+    t7.sign_transaction()
+    transactions.append(t7)
 
-    # t8 = Transaction(
-    #     Seema,
-    #     Ramesh.identity,
-    #     1.0
-    # )
-    # t8.sign_transaction()
-    # transactions.append(t8)
+    t8 = Transaction(
+        Seema,
+        Ramesh.identity,
+        1.0
+    )
+    t8.sign_transaction()
+    transactions.append(t8)
 
-    # t9 = Transaction(
-    #     Vijay,
-    #     Dinesh.identity,
-    #     5.0
-    # )
-    # t9.sign_transaction()
-    # transactions.append(t9)
+    t9 = Transaction(
+        Vijay,
+        Dinesh.identity,
+        5.0
+    )
+    t9.sign_transaction()
+    transactions.append(t9)
 
-    # t10 = Transaction(
-    #     Vijay,
-    #     Ramesh.identity,
-    #     3.0
-    # )
-    # t10.sign_transaction()
-    # transactions.append(t10)
+    t10 = Transaction(
+        Vijay,
+        Ramesh.identity,
+        3.0
+    )
+    t10.sign_transaction()
+    transactions.append(t10)
  
     # display_transactions()
 
@@ -264,10 +265,31 @@ if __name__ == '__main__':
     
     # dump_blockchain()
 
-    ###########################################
-    # Mining test
+    # ###########################################
+    # # Mining test
     
-    mine("test message daa dasd asda sd", 4)
+    # mine("test message daa dasd asda sd", 4)
+
+    ###########################################
+    # Adding a block
+
+    for _ in range(3):
+        block = Block()
+        for i in range(3):
+            temp_transaction = transactions[last_transaction_index] 
+            # validate transaction
+            # if valid
+            block.verified_transactions.append(temp_transaction)
+            last_transaction_index += 1
+            
+        block.previous_block_hash = last_block_hash 
+        block.Nonce = mine (block, 2)
+        digest = hash (block)
+        TPCoins.append (block)
+        last_block_hash = digest
+
+    dump_blockchain()
+
 
 
 
